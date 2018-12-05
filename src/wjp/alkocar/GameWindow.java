@@ -6,14 +6,9 @@
 package wjp.alkocar;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -144,6 +139,7 @@ public class GameWindow extends JFrame {
         three_four.setText("3,4‰");
 
         back.setText("Wróć do menu");
+        back.setFont(new java.awt.Font("Arial", 0, 16));
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
@@ -183,6 +179,7 @@ public class GameWindow extends JFrame {
         howtoplay.setText("Gra ma na celu zwrócenie uwagi na problem jakim jest prowadzenie \npojazdów mechanicznych pod wpływem alkoholu.\nCelem gracza jest dojechanie prowadzonym pojazdem do mety,\njednocześnie omijając napotykane przeszkody.\n\nUżywaj strzałek na klawiaturze, by poruszać autem. ");
         
         back.setText("Wróć do menu");
+        back.setFont(new java.awt.Font("Arial", 0, 16));
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
