@@ -17,6 +17,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 /**
  *
  * @author Damian
@@ -28,6 +29,7 @@ public class GameWindow extends JFrame {
     public JPanel menu = new JPanel();
     public JPanel choose = new JPanel();
     public JPanel instruction = new JPanel();
+    public JPanel game = new JPanel();
     public JPanel cardPanel = new JPanel();
     public CardLayout cl = new CardLayout();
     public Container pane = this.getContentPane();
@@ -38,17 +40,18 @@ public class GameWindow extends JFrame {
     {        
         super(); //wywoĹ‚aj konstruktor klasy nadrzÄ™dnej - utwĂłrz okno
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(width, height); //ustaw wymiary okna
+        this.setSize(width, height); //ustaw wymiary okna
         setLocation(x,y); //ustaw pozycjÄ™ okna
-        setResizable(false); //zablokuj moĹĽliwoĹ›Ä‡ zmian rozmiaru okna
-        setUndecorated(true); //ukryj ramkÄ™ okna i przyciski kontrolne
+        setResizable(true); //zablokuj moĹĽliwoĹ›Ä‡ zmian rozmiaru okna
+        setUndecorated(false); //ukryj ramkÄ™ okna i przyciski kontrolne
         menuGUI(width,height,check);
         chooseGUI(width,height,check);
         instructionGUI(width,height);
         cardPanel.setLayout(cl);
-        cardPanel.add(menu,"One");
-        cardPanel.add(choose,"Two");
-        cardPanel.add(instruction,"Three");
+        cardPanel.add(menu,"MENU");
+        cardPanel.add(choose,"CHOOSE");
+        cardPanel.add(instruction,"INSTRUCTION");
+        cardPanel.add(game,"GAME");
         
         pane.setLayout(new BorderLayout());
         pane.add(cardPanel,BorderLayout.CENTER);
@@ -68,7 +71,7 @@ public class GameWindow extends JFrame {
         JButton instruction=new JButton("Jak grać");
         JButton end=new JButton("Wyjdź z gry");
 
-        setPreferredSize(new java.awt.Dimension(1024, 768));
+        menu.setPreferredSize(new java.awt.Dimension(1024, 768));
 
         title.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -96,7 +99,7 @@ public class GameWindow extends JFrame {
                 }
             }); 
 
-        setLayout(new GridLayout(4,1));
+        menu.setLayout(new GridLayout(4,1));
         menu.add (title);
         menu.add(start);
         menu.add(instruction);
@@ -115,7 +118,7 @@ public class GameWindow extends JFrame {
         JButton three_four = new JButton();
         JButton back = new JButton();
 
-        setPreferredSize(new java.awt.Dimension(1024, 768));
+        choose.setPreferredSize(new java.awt.Dimension(1024, 768));
         
         title.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -146,7 +149,7 @@ public class GameWindow extends JFrame {
                 backActionPerformed(evt);
             }
     });
-        setLayout(new GridLayout(8,1));
+        choose.setLayout(new GridLayout(8,1));
     
         choose.add (title);
         choose.add(under_title);
@@ -161,10 +164,10 @@ public class GameWindow extends JFrame {
     public void instructionGUI (int width, int height){
         JLabel title = new JLabel();
         JLabel under_title = new JLabel();
-        JLabel howtoplay = new JLabel();
+        JTextArea howtoplay= new JTextArea();
         JButton back = new JButton();
         
-        setPreferredSize(new java.awt.Dimension(1024, 768));
+        instruction.setPreferredSize(new java.awt.Dimension(1024, 768));
         
         title.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -174,10 +177,10 @@ public class GameWindow extends JFrame {
         under_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         under_title.setText("Instrukcja do gry");
         
-        howtoplay.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        howtoplay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        howtoplay.setText("Gra ma na celu zwrócenie uwagi na problem jakim jest prowadzenie pojazdów mechanicznych pod wpływem alkoholu.\n"
-                + "Celem gracza jest dojechanie prowadzonym pojazdem do mety jednocześnie omijając napotykane przeszkody.");
+        howtoplay.setColumns(20);
+        howtoplay.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        howtoplay.setRows(5);
+        howtoplay.setText("Gra ma na celu zwrócenie uwagi na problem jakim jest prowadzenie \npojazdów mechanicznych pod wpływem alkoholu.\nCelem gracza jest dojechanie prowadzonym pojazdem do mety,\njednocześnie omijając napotykane przeszkody.\n\nUżywaj strzałek na klawiaturze, by poruszać autem. ");
         
         back.setText("Wróć do menu");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -185,6 +188,7 @@ public class GameWindow extends JFrame {
                 backActionPerformed(evt);
             }
     });
+       instruction.setLayout(new GridLayout(4,1));
        instruction.add(title);
        instruction.add(under_title);
        instruction.add(howtoplay);
@@ -196,22 +200,21 @@ public class GameWindow extends JFrame {
     }                                        
 
     private void instructionActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        cl.next(cardPanel);
-        cl.next(cardPanel);
+        cl.show(cardPanel,"INSTRUCTION");
     }                                        
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {                                         
         
-        cl.next(cardPanel);
+        cl.show(cardPanel,"CHOOSE");
         
     } 
     
     private void zeroActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
+        cl.show(cardPanel,"GAME");
     }  
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        cl.first(cardPanel);
+        cl.show(cardPanel,"MENU");
     }  
     
 
