@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package wjp.alkocar;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
@@ -14,33 +16,203 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 /**
  *
  * @author Damian
  */
+
+
+
 public class GameWindow extends JFrame {
+    public JPanel menu = new JPanel();
+    public JPanel choose = new JPanel();
+    public JPanel instruction = new JPanel();
+    public JPanel cardPanel = new JPanel();
+    public CardLayout cl = new CardLayout();
+    public Container pane = this.getContentPane();
+    
+    
+    
     public GameWindow (int width, int height, int x, int y,int check)
-    {
+    {        
         super(); //wywoĹ‚aj konstruktor klasy nadrzÄ™dnej - utwĂłrz okno
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height); //ustaw wymiary okna
         setLocation(x,y); //ustaw pozycjÄ™ okna
         setResizable(false); //zablokuj moĹĽliwoĹ›Ä‡ zmian rozmiaru okna
-        setUndecorated(false); //ukryj ramkÄ™ okna i przyciski kontrolne
-        initGUI(width,height,check);
-        //wywoĹ‚aj metodÄ™ budowy interfejsu
-        setVisible(true); //pokaĹĽ okno
+        setUndecorated(true); //ukryj ramkÄ™ okna i przyciski kontrolne
+        menuGUI(width,height,check);
+        chooseGUI(width,height,check);
+        instructionGUI(width,height);
+        cardPanel.setLayout(cl);
+        cardPanel.add(menu,"One");
+        cardPanel.add(choose,"Two");
+        cardPanel.add(instruction,"Three");
+        
+        pane.setLayout(new BorderLayout());
+        pane.add(cardPanel,BorderLayout.CENTER);
+
+        this.pack();
+        this.setVisible(true);
         //animationLoop(); //uruchom pÄ™tlÄ™ animacji gry
         
     }
     
-    public void initGUI(int width, int height, int check){
+    public void menuGUI(int width, int height, int check){
         //setLayout(new GridLayout(1,1)); //ustaw rozkĹ‚ad 
         //ustaw zasoby i parametry poczÄ…tkowe
         GPars.loadInitialImages();
-        add(new GamePanel(width,height,check));
-       
+        JLabel  title= new JLabel();
+        JButton start=new JButton("Rozpocznij grę");
+        JButton instruction=new JButton("Jak grać");
+        JButton end=new JButton("Wyjdź z gry");
+
+        setPreferredSize(new java.awt.Dimension(1024, 768));
+
+        title.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("AlkoCar");
+        title.setToolTipText("");
+
+        end.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        end.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    endActionPerformed(evt);
+                }
+            });
+
+        instruction.setFont(new java.awt.Font("Arial", 0, 18)); 
+        instruction.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    instructionActionPerformed(evt);
+                }
+            });
+
+        start.setFont(new java.awt.Font("Arial", 0, 18));
+        start.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    startActionPerformed(evt);
+                }
+            }); 
+
+        setLayout(new GridLayout(4,1));
+        menu.add (title);
+        menu.add(start);
+        menu.add(instruction);
+        menu.add(end);
+        
         //dodaj panel gry zawierajÄ…cy grafikÄ™ i akcjÄ™
     }//koniec initGUI()
+    
+    public void chooseGUI (int width, int height, int check){
+        JLabel title = new JLabel();
+        JLabel under_title = new JLabel();
+        JButton zero = new JButton();
+        JButton zero_six = new JButton();
+        JButton one_five = new JButton();
+        JButton two_three = new JButton();
+        JButton three_four = new JButton();
+        JButton back = new JButton();
+
+        setPreferredSize(new java.awt.Dimension(1024, 768));
+        
+        title.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Wybierz dawkę alkoholu");
+
+        under_title.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        under_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        under_title.setText("Czym większa dawka alkoholu, tym trudniejsza będzie gra");
+
+        zero.setText("0,0‰");
+        zero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zeroActionPerformed(evt);
+            }
+        });
+
+        zero_six.setText("0,6‰");
+
+        one_five.setText("1,5‰");
+
+        two_three.setText("2,3‰");
+
+        three_four.setText("3,4‰");
+
+        back.setText("Wróć do menu");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+    });
+        setLayout(new GridLayout(8,1));
+    
+        choose.add (title);
+        choose.add(under_title);
+        choose.add(zero);
+        choose.add(zero_six);
+        choose.add(one_five);
+        choose.add(two_three);
+        choose.add(three_four);
+        choose.add(back);
+    }
+    
+    public void instructionGUI (int width, int height){
+        JLabel title = new JLabel();
+        JLabel under_title = new JLabel();
+        JLabel howtoplay = new JLabel();
+        JButton back = new JButton();
+        
+        setPreferredSize(new java.awt.Dimension(1024, 768));
+        
+        title.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("AlkoCar");
+
+        under_title.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        under_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        under_title.setText("Instrukcja do gry");
+        
+        howtoplay.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        howtoplay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        howtoplay.setText("Gra ma na celu zwrócenie uwagi na problem jakim jest prowadzenie pojazdów mechanicznych pod wpływem alkoholu.\n"
+                + "Celem gracza jest dojechanie prowadzonym pojazdem do mety jednocześnie omijając napotykane przeszkody.");
+        
+        back.setText("Wróć do menu");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+    });
+       instruction.add(title);
+       instruction.add(under_title);
+       instruction.add(howtoplay);
+       instruction.add(back);
+    }
+    
+    private void endActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        System.exit(0);
+    }                                        
+
+    private void instructionActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        cl.next(cardPanel);
+        cl.next(cardPanel);
+    }                                        
+
+    private void startActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        
+        cl.next(cardPanel);
+        
+    } 
+    
+    private void zeroActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+    }  
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        cl.first(cardPanel);
+    }  
     
 
     
