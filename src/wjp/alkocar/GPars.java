@@ -14,10 +14,14 @@ import javax.swing.ImageIcon;
  * @author Damian
  */
 public class GPars {
-    public static BufferedImage track; //Obraz trasy 
+    public static Image track; //Obraz trasy 
+    public static Image logo;
+    public static Image instruction;
 
     public static void loadInitialImages() {
-
+        track = loadImage("./src/images/track.png");
+        logo = loadImage("./src/images/logo.png");
+        instruction = loadImage("./src/images/instruction.png");
             
             
             
