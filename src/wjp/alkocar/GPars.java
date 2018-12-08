@@ -17,12 +17,32 @@ public class GPars {
     public static Image track; //Obraz trasy 
     public static Image logo;
     public static Image instruction;
+    public static ImageIcon start_button;
+    public static ImageIcon how_button;
+    public static ImageIcon end_button;
+    public static ImageIcon back_button;
+    public static ImageIcon alc1_button;
+    public static ImageIcon alc2_button;
+    public static ImageIcon alc3_button;
+    public static ImageIcon alc4_button;
+    public static ImageIcon alc5_button;
+    public static Image car;
+    
 
     public static void loadInitialImages() {
         track = loadImage("./src/images/track.png");
         logo = loadImage("./src/images/logo.png");
         instruction = loadImage("./src/images/instruction.png");
-            
+        start_button = new ImageIcon("./src/images/button1.png");
+        how_button = new ImageIcon("./src/images/button2.png");
+        end_button = new ImageIcon("./src/images/button3.png");
+        back_button = new ImageIcon("./src/images/button4.png");
+        alc1_button = new ImageIcon("./src/images/button5.png");
+        alc2_button = new ImageIcon("./src/images/button6.png");
+        alc3_button = new ImageIcon("./src/images/button7.png");
+        alc4_button = new ImageIcon("./src/images/button8.png");
+        alc5_button = new ImageIcon("./src/images/button9.png");
+        car = loadImage("./src/images/car.png");
             
             
         }//koniec loadInitialImages()

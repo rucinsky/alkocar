@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,7 +38,10 @@ import static wjp.alkocar.GPars.track;
 
 
 
-public class GameWindow extends JFrame implements ActionListener {
+public class GameWindow extends JFrame {
+    
+    public int width;
+    public int height;
     public JPanel menu = new JPanel();
     public JPanel choose = new JPanel();
     public JPanel instruction = new JPanel();
@@ -46,14 +50,16 @@ public class GameWindow extends JFrame implements ActionListener {
     public CardLayout cl = new CardLayout();
     public Container pane = this.getContentPane();
     public Graphics g;
-    public Timer tm = new Timer(5,this);
+    //public Timer tm = new Timer(5,this);
     public int y=0, dy=2;
     
     
     
     public GameWindow(int width, int height, int x, int y,int level)
     {        
-        super(); //wywoĹ‚aj konstruktor klasy nadrzÄ™dnej - utwĂłrz okno
+        super();
+        this.width=width;
+        this.height=height;//wywoĹ‚aj konstruktor klasy nadrzÄ™dnej - utwĂłrz okno
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(width, height); //ustaw wymiary okna
         setLocation(x,y); //ustaw pozycjÄ™ okna
@@ -61,14 +67,14 @@ public class GameWindow extends JFrame implements ActionListener {
         setUndecorated(true); //ukryj ramkÄ™ okna i przyciski kontrolne
         GPars.loadInitialImages();
         menuGUI(width,height,level);
-        chooseGUI(width,height,level,g);
+        chooseGUI(width,height,level,g); 
+        //gameGUI(width,height,level);  
         instructionGUI(width,height);
         
         cardPanel.setLayout(cl);
         cardPanel.add(menu,"MENU");
         cardPanel.add(choose,"CHOOSE");
         cardPanel.add(instruction,"INSTRUCTION");
-        cardPanel.add(game,"GAME");
         pane.setLayout(new BorderLayout());
         pane.add(cardPanel,BorderLayout.CENTER);
         
@@ -81,34 +87,39 @@ public class GameWindow extends JFrame implements ActionListener {
     public void menuGUI(int width, int height, int level){
         
         Image image;
-        JButton start=new JButton("Rozpocznij grę");
-        JButton instruction=new JButton("Jak grać");
-        JButton end=new JButton("Wyjdź z gry");
+        JButton start=new JButton();
+        JButton instruction=new JButton();
+        JButton end=new JButton();
 
         menu.setPreferredSize(new java.awt.Dimension(width, height));
 
 
-        end.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
-        end.setBackground(Color.white);
+        end.setIcon(GPars.end_button);
+        end.setBorderPainted(true);
+        end.setContentAreaFilled(false);
         end.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    endActionPerformed(evt);
+                    ButtonAction.endActionPerformed(evt);
                 }
             });
 
-        instruction.setFont(new java.awt.Font("Arial", 0, 30));
-        instruction.setBackground(Color.white);
+        instruction.setIcon(GPars.how_button);
+        instruction.setBorderPainted(true);
+        instruction.setContentAreaFilled(false);
         instruction.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    instructionActionPerformed(evt);
+                    ButtonAction.instructionActionPerformed(evt, cl, cardPanel);
                 }
             });
 
-        start.setFont(new java.awt.Font("Arial", 0, 30));
-        start.setBackground(Color.white);
+        //start.setFont(new java.awt.Font("Arial", 0, 30));
+        
+        start.setIcon(GPars.start_button);
+        start.setBorderPainted(true);
+        start.setContentAreaFilled(false);
         start.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    startActionPerformed(evt);
+                    ButtonAction.startActionPerformed(evt, cl, cardPanel);
                 }
             }); 
 
@@ -120,6 +131,8 @@ public class GameWindow extends JFrame implements ActionListener {
         menu.add(start);
         menu.add(instruction);
         menu.add(end);
+        
+        validate();
         
         //dodaj panel gry zawierajÄ…cy grafikÄ™ i akcjÄ™
     }//koniec initGUI()
@@ -145,37 +158,37 @@ public class GameWindow extends JFrame implements ActionListener {
         under_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         under_title.setText("Czym większa dawka alkoholu, tym trudniejsza będzie gra");
 
-        zero.setText("0,0‰");
-        zero.setBackground(Color.white);
-        zero.setFont(new java.awt.Font("Arial", 0, 30));
+        zero.setIcon(GPars.alc1_button);
+        zero.setBorderPainted(true);
+        zero.setContentAreaFilled(false);
         zero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zeroActionPerformed(evt,level,width,height,g);
+                ButtonAction.zeroActionPerformed(evt, cl, cardPanel,width,height);
             }
         });
 
-        zero_six.setText("0,6‰");
-        zero_six.setBackground(Color.white);
-        zero_six.setFont(new java.awt.Font("Arial", 0, 30));
+        zero_six.setIcon(GPars.alc2_button);
+        zero_six.setBorderPainted(true);
+        zero_six.setContentAreaFilled(false);
         
-        one_five.setText("1,5‰");
-        one_five.setBackground(Color.white);
-        one_five.setFont(new java.awt.Font("Arial", 0, 30));
+        one_five.setIcon(GPars.alc3_button);
+        one_five.setBorderPainted(true);
+        one_five.setContentAreaFilled(false);
         
-        two_three.setText("2,3‰");
-        two_three.setBackground(Color.white);
-        two_three.setFont(new java.awt.Font("Arial", 0, 30));
+        two_three.setIcon(GPars.alc4_button);
+        two_three.setBorderPainted(true);
+        two_three.setContentAreaFilled(false);
 
-        three_four.setText("3,4‰");
-        three_four.setBackground(Color.white);
-        three_four.setFont(new java.awt.Font("Arial", 0, 30));
+        three_four.setIcon(GPars.alc5_button);
+        three_four.setBorderPainted(true);
+        three_four.setContentAreaFilled(false);
         
-        back.setText("Wróć do menu");
-        back.setBackground(Color.white);
-        back.setFont(new java.awt.Font("Arial", 0, 30));
+        back.setIcon(GPars.back_button);
+        back.setBorderPainted(true);
+        back.setContentAreaFilled(false);
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
+                ButtonAction.backActionPerformed(evt, cl, cardPanel);
             }
     });
         choose.setLayout(new GridLayout(8,1));
@@ -199,12 +212,12 @@ public class GameWindow extends JFrame implements ActionListener {
         
         instruction.setPreferredSize(new java.awt.Dimension(1024, 768));
         
-        back.setText("Wróć do menu");
-        back.setBackground(Color.white);
-        back.setFont(new java.awt.Font("Arial", 0, 30));
+        back.setIcon(GPars.back_button);
+        back.setBorderPainted(true);
+        back.setContentAreaFilled(false);
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
+                ButtonAction.backActionPerformed(evt, cl, cardPanel);
             }
     });
        instruction.setLayout(new FlowLayout(1));
@@ -214,9 +227,39 @@ public class GameWindow extends JFrame implements ActionListener {
        instruction.add(back);
     }
     
-    public void gameGUI (int widht, int height, int level, Graphics g){
-        
+    /*public void gameGUI (int widht, int height, int level){
+        JButton back;
+        JLabel alcohol;
         JPanel play = new JPanel();
+        JPanel buttons = new JPanel();
+        
+        //buttons.add(back);
+        //game.add(gp);
+        //gp.repaint();
+        //game.add(buttons);
+        
+        
+        
+        
+        
+        
+        /*while(true){
+            
+            while(c <= 1){
+                gp.moveTrack(count);
+                gp.repaint();//redraw road to match new locations
+                try{
+                    Thread.sleep(5);    //wait so that the road appears to be moving continously
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+                c++;
+            }
+            c = 1;
+            count++;}*/
+    
+        /*JPanel play = new JPanel();
         JPanel buttons = new JPanel();
         Image trackImage;
         JButton menu = new JButton("Menu");
@@ -229,16 +272,16 @@ public class GameWindow extends JFrame implements ActionListener {
             }); 
         
         trackImage = GPars.track;
-        //JLabel track = new JLabel(new ImageIcon(trackImage));
-        //play.add();
-        //buttons.add(menu);
-        //game.add(play);
-        //game.add(buttons);
-        tm.start();
+        JLabel track = new JLabel(new ImageIcon(trackImage));
+        play.add(track);
+        buttons.add(menu);
+        game.add(play);
+        game.add(buttons);
+        //tm.start();
         
         
         
-        /*while(posY>-200)
+        while(posY>-200)
         {
             
             
@@ -247,56 +290,11 @@ public class GameWindow extends JFrame implements ActionListener {
             
         }*/
         
-   } 
+ 
     
-    public void paintComponent(Graphics g) {
-        this.paintComponent(g);
 
-        drawStar(g);
-    }
-
-    private void drawStar(Graphics g) {
-
-        g.drawImage(GPars.track, 0, y, this);
-        Toolkit.getDefaultToolkit().sync();
-    }
     
-    @Override
-    public void actionPerformed (ActionEvent e){
-        y=y-dy;
-        repaint();
-    }
     
-    private void endActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        System.exit(0);
-    }                                        
-
-    private void instructionActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        cl.show(cardPanel,"INSTRUCTION");
-    }                                        
-
-    private void startActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        
-        cl.show(cardPanel,"CHOOSE");
-        
-    } 
-    
-    private void zeroActionPerformed(java.awt.event.ActionEvent evt, int level, int width, int height,Graphics g) {                                     
-        
-        level = 1;
-        gameGUI(width,height,level,g);
-        cl.show(cardPanel,"GAME");
-    }  
-
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        cl.show(cardPanel,"MENU");
-    }  
-    
-     private void menuActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        
-        //TU MUSI BYĆ INNE MENU KTÓRE BEDZIE KONTYNUOWALO GRE A NIE ZACZYNALO NOWA
-        
-    } 
     
 
    
