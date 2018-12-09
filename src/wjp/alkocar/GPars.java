@@ -27,6 +27,7 @@ public class GPars {
     public static ImageIcon alc4_button;
     public static ImageIcon alc5_button;
     public static Image car;
+    public static Image gameover;
     
 
     public static void loadInitialImages() {
@@ -43,6 +44,7 @@ public class GPars {
         alc4_button = new ImageIcon("./src/images/button8.png");
         alc5_button = new ImageIcon("./src/images/button9.png");
         car = loadImage("./src/images/car.png");
+        gameover = loadImage("./src/images/gameover.png");
             
             
         }//koniec loadInitialImages()

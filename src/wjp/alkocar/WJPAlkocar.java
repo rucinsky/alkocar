@@ -32,6 +32,7 @@ public class WJPAlkocar {
         //utwĂłrz obiekt klasy GameWindow - konstruktor wywoĹ‚uje dalszÄ… akcjÄ™
         GameWindow gw=new GameWindow(gameWidth,gameHeight,xCenter,yCenter,level);
         gw.setSize(gameWidth, gameHeight);
+        gw.setTitle("AlkoCar");
     }
     
 }

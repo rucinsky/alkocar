@@ -9,16 +9,19 @@ import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author Damian
  */
-public class GamePanel extends JPanel{
+public class GamePanel extends JPanel implements ActionListener, KeyListener{
     
     public int sWidth;
     /** WysokoĹ›Ä‡ pola graficznego gry*/
@@ -30,21 +33,22 @@ public class GamePanel extends JPanel{
     public int carX;
     public int carY;
     public int speedX,speedY;
-    public boolean isUp, isDown, isRight, isLeft; 
+    Timer t = new Timer (5, this);
     
     public GamePanel(CardLayout cl, JPanel cardPanel,int width,int height){
         this.cardPanel = cardPanel;
         this.cl=cl;
         this.sHeight=height;
         this.sWidth=width;
-        
-        check();
-        //setFocusable(true);
-        isUp = isDown = isLeft = isRight = false;
         carX=885;
         carY=470;
         speedX=0;
         speedY=0;
+        t.start();
+        addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+        
     }           
    @Override
     protected void paintComponent(Graphics gs){
@@ -53,26 +57,11 @@ public class GamePanel extends JPanel{
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         // Narysuj tĹ‚o
         g.drawImage(GPars.track, 0, posY, null);
-        g.drawImage(GPars.car,carX,carY,this); 
-        validate();
-}
-    public void check(){
-        addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-            @Override
-            public void keyReleased(KeyEvent e) { //when a key is released
-                stopCar(e); //stop movement of car
-            }
-            @Override
-            public void keyPressed(KeyEvent e) { //when a key is pressed
-                moveCar(e); //move the car in the direction given by the key
-            }
-        
-    });
-    }
-    public void moveTrack(){
+        g.drawImage(GPars.car,carX,carY,this);
+} 
+    
+    public void actionPerformed (ActionEvent e){
+        repaint();
         if(posY>=0){ //if the road crossing has passed by
             
                 posY = -749;
@@ -82,77 +71,99 @@ public class GamePanel extends JPanel{
         {   //otherwise
             posY++; //keep moving the crossing across the window
         }
-        try{
-                    Thread.sleep(5);    //wait so that the road appears to be moving continously
-                }
-                catch(Exception e){
-                    System.out.println(e);}
-        
         
         carX += speedX; //update car x position
         carY += speedY; //update car y position
         
-        if(carY < 0)   //if the car has reached or gone under its min x axis value
-        {carY = 0;}  //keep it at its min x axis value
+        if(carY <= 3)   //if the car has reached or gone under its min x axis value
+        {carY = 3;}  //keep it at its min x axis value
         
         //case analysis to restrict car from going outside the right side of the screen
-        if(carY-167 <=650 ) //if the car has reached or gone over its max x axis value
-        {carY = 650-167;} //keep it at its max x axis value
+        if(carY >=480 ) //if the car has reached or gone over its max x axis value
+        {carY = 480;} //keep it at its max x axis value
         
         //case analysis to restrict car from going outside the right side of the road
         if(carX <= 0)    //if the car has reached the the right side of the road or is trying to go further
         {carX = 0;}    //keep the car where it is
         
         //case analysis to restrict car from going outside the left side of the road
-        if(carX >= 1280-90) //if the car has reached the the left side of the road or is trying to go further
-        {carX = 1280-90;} //keep the car where it is
+        if(carX >= 1168) //if the car has reached the the left side of the road or is trying to go further
+        {carX = 1168;} //keep the car where it is
         
-        repaint();
-        revalidate();
-    } 
-    public void moveCar(KeyEvent e){
-        if(e.getKeyCode() == KeyEvent.VK_UP){   //if user clicks on the up arrow key
-            isUp = true;
-            speedY = -1;
-            moveTrack();
-        }
-        if(e.getKeyCode() == KeyEvent.VK_DOWN){ //if user clicks on the down arrow key
-            isDown = true;
-            speedY = 1;
-            moveTrack();
-        }
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT){ //if user clicks on the right arrow key
-            isRight = true;
-            speedX = 1; 
-            moveTrack();
-        }
-        if(e.getKeyCode() == KeyEvent.VK_LEFT){ //if user clicks on the left arrow key
-            isLeft = true;
-            speedX = -1;
-            moveTrack();
+        if (carX<=234){
+            t.stop();
+            speedX=0;
+            speedY=0;
+            cl.show(cardPanel, "GAME OVER");
         }
     }
-    public void stopCar(KeyEvent e){
-        check();
-        if(e.getKeyCode() == KeyEvent.VK_UP){   //if user clicks on the up arrow key
-            isUp = false;
-            speedY = 0;
-            moveTrack();
+    
+    public void up(){
+        speedY= -1;
+        //speedX=0;
+    }
+    public void down(){
+        speedY= 1;
+        //speedX=0;
+    }
+    public void left(){
+        //speedY=0;
+        speedX=-1;
+    }
+    public void right(){
+        //speedY=0;
+        speedX=1;
+    }
+    
+    public void upSTOP(){
+        speedY= 0;
+        //speedX=0;
+    }
+    public void downSTOP(){
+        speedY= 0;
+        //speedX=0;
+    }
+    public void leftSTOP(){
+        //speedY=0;
+        speedX=0;
+    }
+    public void rightSTOP(){
+        //speedY=0;
+        speedX=0;
+    }
+    
+    public void keyPressed(KeyEvent e){
+        int code = e.getKeyCode();
+        if (code== KeyEvent.VK_UP){
+            up();
         }
-        else if(e.getKeyCode() == KeyEvent.VK_DOWN){    //if user clicks on the down arrow key
-            isDown = false;
-            speedY = 0;
-            moveTrack();
+        if (code== KeyEvent.VK_DOWN){
+            down();
         }
-        else if(e.getKeyCode() == KeyEvent.VK_LEFT){    //if user clicks on the left arrow key
-            isLeft = false;
-            speedX = 0;
-            moveTrack();
+        if (code== KeyEvent.VK_LEFT){
+            left();
         }
-        else if(e.getKeyCode() == KeyEvent.VK_RIGHT){   //if user clicks on the right arrow key
-            isRight = false;
-            speedX = 0;
-            moveTrack();
+        if (code== KeyEvent.VK_RIGHT){
+            right();
         }
     }
+    public void keyTyped(KeyEvent e){
+        
+    }
+    public void keyReleased (KeyEvent e){
+        int code = e.getKeyCode();
+        if (code== KeyEvent.VK_UP){
+            upSTOP();
+        }
+        if (code== KeyEvent.VK_DOWN){
+            downSTOP();
+        }
+        if (code== KeyEvent.VK_LEFT){
+            leftSTOP();
+        }
+        if (code== KeyEvent.VK_RIGHT){
+            rightSTOP();
+        }
+    }
+        
 }

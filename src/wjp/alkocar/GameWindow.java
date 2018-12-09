@@ -31,6 +31,7 @@ public class GameWindow extends JFrame {
     public JPanel choose = new JPanel();
     public JPanel instruction = new JPanel();
     public JPanel game = new JPanel();
+    public JPanel gameover = new JPanel();
     public JPanel cardPanel = new JPanel();
     public CardLayout cl = new CardLayout();
     public Container pane = this.getContentPane();
@@ -53,13 +54,14 @@ public class GameWindow extends JFrame {
         GPars.loadInitialImages();
         menuGUI(width,height,level);
         chooseGUI(width,height,level,g); 
-        //gameGUI(width,height,level);  
+        gameoverGUI();  
         instructionGUI(width,height);
         
         cardPanel.setLayout(cl);
         cardPanel.add(menu,"MENU");
         cardPanel.add(choose,"CHOOSE");
         cardPanel.add(instruction,"INSTRUCTION");
+        cardPanel.add(gameover,"GAME OVER");
         pane.setLayout(new BorderLayout());
         pane.add(cardPanel,BorderLayout.CENTER);
         
@@ -212,77 +214,21 @@ public class GameWindow extends JFrame {
        instruction.add(back);
     }
     
-    /*public void gameGUI (int widht, int height, int level){
-        JButton back;
-        JLabel alcohol;
-        JPanel play = new JPanel();
-        JPanel buttons = new JPanel();
-        
-        //buttons.add(back);
-        //game.add(gp);
-        //gp.repaint();
-        //game.add(buttons);
-        
-        
-        
-        
-        
-        
-        /*while(true){
-            
-            while(c <= 1){
-                gp.moveTrack(count);
-                gp.repaint();//redraw road to match new locations
-                try{
-                    Thread.sleep(5);    //wait so that the road appears to be moving continously
-                }
-                catch(Exception e){
-                    System.out.println(e);
-                }
-                c++;
+    public void gameoverGUI (){
+        Image image;
+        JButton back = new JButton();
+        image = GPars.gameover;
+        JLabel gameoverImage = new JLabel(new ImageIcon(image));
+         back.setIcon(GPars.back_button);
+        back.setBorderPainted(true);
+        back.setContentAreaFilled(false);
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAction.backActionPerformed(evt, cl, cardPanel);
             }
-            c = 1;
-            count++;}*/
-    
-        /*JPanel play = new JPanel();
-        JPanel buttons = new JPanel();
-        Image trackImage;
-        JButton menu = new JButton("Menu");
-        menu.setFont(new java.awt.Font("Arial", 0, 30));
-        menu.setBackground(Color.white);
-        menu.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    backActionPerformed(evt);
-                }
-            }); 
-        
-        trackImage = GPars.track;
-        JLabel track = new JLabel(new ImageIcon(trackImage));
-        play.add(track);
-        buttons.add(menu);
-        game.add(play);
-        game.add(buttons);
-        //tm.start();
-        
-        
-        
-        while(posY>-200)
-        {
-            
-            
-            track.setLocation(0, CheckLocation(posY));
-           
-            
-        }*/
-        
- 
-    
-
-    
-    
-    
-
-   
-    
+    });
+       gameover.add(gameoverImage);
+       gameover.add(back);
+    }
     
 }
