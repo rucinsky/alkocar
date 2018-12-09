@@ -6,7 +6,6 @@
 package wjp.alkocar;
 
 import java.awt.CardLayout;
-import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
