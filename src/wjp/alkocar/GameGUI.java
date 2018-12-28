@@ -6,6 +6,8 @@
 package wjp.alkocar;
 
 import java.awt.CardLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +26,7 @@ public class GameGUI extends JPanel{
         JLabel alcohol;
         back = new javax.swing.JButton();
         alcohol = new javax.swing.JLabel();
+        
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(gp);
         gp.setLayout(jPanel1Layout);
@@ -41,7 +44,9 @@ public class GameGUI extends JPanel{
         back.setContentAreaFilled(false);
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+
                 ButtonAction.backActionPerformed(evt,cl,cardPanel);
+                
             }});
 
         alcohol.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N

@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -35,13 +34,10 @@ public class GameWindow extends JFrame {
     public JPanel cardPanel = new JPanel();
     public CardLayout cl = new CardLayout();
     public Container pane = this.getContentPane();
-    public Graphics g;
-    //public Timer tm = new Timer(5,this);
-    public int y=0, dy=2;
     
     
     
-    public GameWindow(int width, int height, int x, int y,int level)
+    public GameWindow(int width, int height, int x, int y)
     {        
         super();
         this.width=width;
@@ -52,8 +48,8 @@ public class GameWindow extends JFrame {
         setResizable(true); //zablokuj moĹĽliwoĹ›Ä‡ zmian rozmiaru okna
         setUndecorated(true); //ukryj ramkÄ™ okna i przyciski kontrolne
         GPars.loadInitialImages();
-        menuGUI(width,height,level);
-        chooseGUI(width,height,level,g); 
+        menuGUI(width,height);
+        chooseGUI(width,height); 
         gameoverGUI();  
         instructionGUI(width,height);
         
@@ -71,7 +67,7 @@ public class GameWindow extends JFrame {
         
     }
     
-    public void menuGUI(int width, int height, int level){
+    public void menuGUI(int width, int height){
         
         Image image;
         JButton start=new JButton();
@@ -124,7 +120,7 @@ public class GameWindow extends JFrame {
         //dodaj panel gry zawierajÄ…cy grafikÄ™ i akcjÄ™
     }//koniec initGUI()
     
-    public void chooseGUI (int width, int height, int level,Graphics g){
+    public void chooseGUI (int width, int height){
         JLabel title = new JLabel();
         JLabel under_title = new JLabel();
         JButton zero = new JButton();
@@ -157,18 +153,38 @@ public class GameWindow extends JFrame {
         zero_six.setIcon(GPars.alc2_button);
         zero_six.setBorderPainted(true);
         zero_six.setContentAreaFilled(false);
+        zero_six.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAction.zero_sixActionPerformed(evt, cl, cardPanel,width,height);
+            }
+        });
         
         one_five.setIcon(GPars.alc3_button);
         one_five.setBorderPainted(true);
         one_five.setContentAreaFilled(false);
+        one_five.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAction.one_fiveActionPerformed(evt, cl, cardPanel,width,height);
+            }
+        });
         
         two_three.setIcon(GPars.alc4_button);
         two_three.setBorderPainted(true);
         two_three.setContentAreaFilled(false);
+        two_three.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAction.two_threeActionPerformed(evt, cl, cardPanel,width,height);
+            }
+        });
 
         three_four.setIcon(GPars.alc5_button);
         three_four.setBorderPainted(true);
         three_four.setContentAreaFilled(false);
+        three_four.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAction.three_fourActionPerformed(evt, cl, cardPanel,width,height);
+            }
+        });
         
         back.setIcon(GPars.back_button);
         back.setBorderPainted(true);

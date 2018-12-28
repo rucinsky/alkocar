@@ -19,7 +19,6 @@ public class WJPAlkocar {
     public static void main(String[] args) {
         int gameWidth=1280;
         int gameHeight=745;
-        int level =0;
         
         //pobierz rozmiar ekranu
         int screenWidth=Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -30,7 +29,7 @@ public class WJPAlkocar {
         int yCenter=((screenHeight-gameHeight)/2)-10;       
                 
         //utwĂłrz obiekt klasy GameWindow - konstruktor wywoĹ‚uje dalszÄ… akcjÄ™
-        GameWindow gw=new GameWindow(gameWidth,gameHeight,xCenter,yCenter,level);
+        GameWindow gw=new GameWindow(gameWidth,gameHeight,xCenter,yCenter);
         gw.setSize(gameWidth, gameHeight);
         gw.setTitle("AlkoCar");
     }

@@ -6,6 +6,8 @@
 package wjp.alkocar;
 
 import java.awt.CardLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -33,14 +35,44 @@ public class ButtonAction{
     
     public static void zeroActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
         
-        GamePanel gp = new GamePanel(cl,cardPanel,width,height);
+        GamePanel gp = new GamePanel(cl,cardPanel,width,height,1);
         GameGUI gg = new GameGUI(gp,cardPanel,cl);
         cardPanel.add(gg,"GAME");
         cl.show(cardPanel,"GAME");
     }  
+    public static void zero_sixActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
+        
+        GamePanel gp = new GamePanel(cl,cardPanel,width,height,2);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        cardPanel.add(gg,"GAME");
+        cl.show(cardPanel,"GAME");
+    }
+    public static void one_fiveActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
+        
+        GamePanel gp = new GamePanel(cl,cardPanel,width,height,3);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        cardPanel.add(gg,"GAME");
+        cl.show(cardPanel,"GAME");
+    }
+    public static void two_threeActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
+        
+        GamePanel gp = new GamePanel(cl,cardPanel,width,height,4);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        cardPanel.add(gg,"GAME");
+        cl.show(cardPanel,"GAME");
+    }
+    public static void three_fourActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
+        
+        GamePanel gp = new GamePanel(cl,cardPanel,width,height,5);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        cardPanel.add(gg,"GAME");
+        cl.show(cardPanel,"GAME");
+    }
 
     public static void backActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel) {                                     
+        
         cl.show(cardPanel,"MENU");
+        
     }  
     
      public static void menuActionPerformed(java.awt.event.ActionEvent evt) {                                         
