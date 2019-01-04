@@ -17,11 +17,12 @@ import javax.swing.JPanel;
  * @author Damian
  */
 public class GameGUI extends JPanel{
-    
-    public GameGUI(GamePanel gp,JPanel cardPanel, CardLayout cl){
-        initComponents(gp,cardPanel,cl);
+    public int level;
+    public GameGUI(GamePanel gp,JPanel cardPanel, CardLayout cl, int level){
+        this.level = level;
+        initComponents(gp,cardPanel,cl, level);
     }
-    private void initComponents(GamePanel gp, JPanel cardPanel, CardLayout cl){
+    private void initComponents(GamePanel gp, JPanel cardPanel, CardLayout cl, int level){
         JButton back;
         JLabel alcohol;
         back = new javax.swing.JButton();
@@ -42,18 +43,35 @@ public class GameGUI extends JPanel{
         back.setIcon(GPars.back_button);
         back.setBorderPainted(true);
         back.setContentAreaFilled(false);
-        back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-
-                ButtonAction.backActionPerformed(evt,cl,cardPanel);
-                
-            }});
+        back.addActionListener((java.awt.event.ActionEvent evt) -> {
+            try {
+                gp.end();
+            } catch (Throwable ex) {
+                Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cl.show(cardPanel,"MENU");
+        });
 
         alcohol.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        alcohol.setText("Zawartość alkoholu we krwi: 0,0 ‰");
-
+        
+        if(level==1){
+            alcohol.setText("Zawartość alkoholu we krwi: 0,0 ‰");
+        }  
+        if(level==2){
+            alcohol.setText("Zawartość alkoholu we krwi: 0,6 ‰");
+        } 
+        if(level==3){
+            alcohol.setText("Zawartość alkoholu we krwi: 1,5 ‰");
+        } 
+        if(level==4){
+            alcohol.setText("Zawartość alkoholu we krwi: 2,3 ‰");
+        } 
+        if(level==5){
+            alcohol.setText("Zawartość alkoholu we krwi: 3,4 ‰");
+        } 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
+        
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -80,7 +98,4 @@ public class GameGUI extends JPanel{
         );
     }
     
-    //private void backActionPerformed(java.awt.event.ActionEvent evt,cl,cardPanel) {                                     
-       // cl.show(cardPanel,"MENU");
-   // } 
 }

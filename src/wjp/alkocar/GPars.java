@@ -28,8 +28,8 @@ public class GPars {
     public static ImageIcon alc5_button;
     public static Image car;
     public static Image gameover;
-    public static Image obstacle1;
-    public static Image obstacle2;
+    public static Image obstacle1,obstacle2,obstacle3;
+    public static Image cover,cover1,cover2,cover3;
     
 
     public static void loadInitialImages() {
@@ -49,7 +49,11 @@ public class GPars {
         gameover = loadImage("./src/images/gameover.png");
         obstacle1 = loadImage("./src/images/obstacle_car.png");
         obstacle2 = loadImage("./src/images/obstacle_tree.png");
-        
+        obstacle3 = loadImage("./src/images/obstacle_rock.png");
+        cover = loadImage("./src/images/cover.png");
+        cover1 = loadImage("./src/images/cover1.png");
+        cover2 = loadImage("./src/images/cover2.png");
+        cover3 = loadImage("./src/images/cover3.png");
             
             
         }//koniec loadInitialImages()

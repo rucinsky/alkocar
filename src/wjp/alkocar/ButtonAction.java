@@ -36,35 +36,35 @@ public class ButtonAction{
     public static void zeroActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
         
         GamePanel gp = new GamePanel(cl,cardPanel,width,height,1);
-        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl,1);
         cardPanel.add(gg,"GAME");
         cl.show(cardPanel,"GAME");
     }  
     public static void zero_sixActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
         
         GamePanel gp = new GamePanel(cl,cardPanel,width,height,2);
-        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl,2);
         cardPanel.add(gg,"GAME");
         cl.show(cardPanel,"GAME");
     }
     public static void one_fiveActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
         
         GamePanel gp = new GamePanel(cl,cardPanel,width,height,3);
-        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl,3);
         cardPanel.add(gg,"GAME");
         cl.show(cardPanel,"GAME");
     }
     public static void two_threeActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
         
         GamePanel gp = new GamePanel(cl,cardPanel,width,height,4);
-        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl,4);
         cardPanel.add(gg,"GAME");
         cl.show(cardPanel,"GAME");
     }
     public static void three_fourActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                     
         
         GamePanel gp = new GamePanel(cl,cardPanel,width,height,5);
-        GameGUI gg = new GameGUI(gp,cardPanel,cl);
+        GameGUI gg = new GameGUI(gp,cardPanel,cl,5);
         cardPanel.add(gg,"GAME");
         cl.show(cardPanel,"GAME");
     }
