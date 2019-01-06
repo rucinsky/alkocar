@@ -49,8 +49,8 @@ public class GameWindow extends JFrame {
         super(); //wywołaj konstruktor klasy nadrzędnej
         this.width=width;
         this.height=height;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(width, height); //ustaw wymiary okna
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(width, height); //ustaw wymiary okna
         setLocation(x,y); //ustaw pozycję okna
         setResizable(true); //zablokuj możliwość zmian rozmiaru okna
         setUndecorated(true); //ukryj ramkę okna i przyciski kontrolne
@@ -72,12 +72,13 @@ public class GameWindow extends JFrame {
         this.setVisible(true);
         
     }
+    
     /**
      * Metoda ładująca komponenty panelu MENU
      * @param width szerokość okna
      * @param height wysokość okna
      */
-    public void menuGUI(int width, int height){
+    private void menuGUI(int width, int height){
         
         Image image;
         JButton start=new JButton(); //przycisk "Rozpocznij grę"
@@ -137,7 +138,7 @@ public class GameWindow extends JFrame {
      * @param width szerokość okna
      * @param height wysokość okna
      */
-    public void chooseGUI (int width, int height){
+    private void chooseGUI (int width, int height){
         JLabel title = new JLabel(); //tytuł panelu
         JLabel under_title = new JLabel(); // tekst pod tytułem
         JButton zero = new JButton(); // przycisk "trzeźwy"
@@ -227,12 +228,13 @@ public class GameWindow extends JFrame {
         choose.add(three_four);
         choose.add(back);
     }
+    
     /**
      * Metoda ładująca komponenty panelu instrukcji
      * @param width szerokość okna
      * @param height wysokość okna
      */
-    public void instructionGUI (int width, int height){
+    private void instructionGUI (int width, int height){
         Image image; //grafika z opisem rozgrywki
         JButton back = new JButton(); //przycisk powrotu do menu
         image = GPars.instruction; // wczytanie grafiki
@@ -253,12 +255,13 @@ public class GameWindow extends JFrame {
        instruction.add(instructionImage);
        instruction.add(back);
     }
-   /**
+   
+    /**
      * Metoda ładująca komponenty panelu Game Over
      * @param width szerokość okna
      * @param height wysokość okna
     */ 
-    public void gameoverGUI (int width, int height){
+    private void gameoverGUI (int width, int height){
         Image image;
         JButton back = new JButton(); //przycisk powrotu do menu
         image = GPars.gameover; //wczytanie grafiki

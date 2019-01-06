@@ -8,12 +8,15 @@ package wjp.alkocar;
 import java.awt.Toolkit;
 
 /**
- *
+ * AlkoCar
+ * Prosta gra interaktywna prezentująca jak alkohol wpływa na prowadzenie 
+ * pojazdów mechanicznych. 
  * @author Damian
  */
 public class WJPAlkocar {
 
     /**
+     * Metoda uruchamia gra, tworzy okno o wybranych wymiarach.
      * @param args the command line arguments
      */
     public static void main(String[] args) {

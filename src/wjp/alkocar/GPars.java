@@ -10,7 +10,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * Klasa służąca jako kontener zasobów gry. 
  * @author Damian
  */
 public class GPars {
@@ -42,9 +42,9 @@ public class GPars {
     /**  Grafika samochodu prowadzonego przez użytkownika"   */
     public static Image gameover;
     /**  Grafika ekranu "Game Over"   */
-    public static Image obstacle1,obstacle2,obstacle3;
+    public static Image obstacle1,obstacle2,obstacle3,obstacle4;
     /**  Grafika przeszkód drogowych   */
-    public static Image cover,cover1,cover2,cover3;
+    public static Image cover,cover1,cover2,cover3,cover4;
     /**  Grafika przesłon, psujących wizję   */
     public static File f1 ,f2;
     /**  Pliki ścieżek dźwiękowych   */
@@ -70,10 +70,12 @@ public class GPars {
         obstacle1 = loadImage("./src/images/obstacle_car.png");
         obstacle2 = loadImage("./src/images/obstacle_tree.png");
         obstacle3 = loadImage("./src/images/obstacle_rock.png");
+        obstacle4 = loadImage("./src/images/obstacle_human.png");
         cover = loadImage("./src/images/cover.png");
         cover1 = loadImage("./src/images/cover1.png");
         cover2 = loadImage("./src/images/cover2.png");
         cover3 = loadImage("./src/images/cover3.png");
+        cover4 = loadImage("./src/images/cover4.png");
         f1 = loadFile("./src/sounds/water_sound.wav"); 
         f2 = loadFile("./src/sounds/car_crash.wav");
         

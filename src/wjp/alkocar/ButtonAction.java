@@ -9,7 +9,7 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
- * Metoda zbierająca w sobie wszystkie akcje, które zostają wykonane 
+ * Klasa zbierająca w sobie wszystkie akcje, które zostają wykonane 
  * po wciśnięciu określonego przycisku.
  * @author Damian
  */

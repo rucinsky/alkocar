@@ -20,7 +20,17 @@ import javax.swing.JPanel;
  * @author Damian
  */
 public class GameGUI extends JPanel{
-    public int level;
+    public int level; //level gry, czyli właściwie dawka alkoholu
+    /**
+     * Konstruktor tylko wywołuje kolejną metodę
+     * @param gp Obiekt klasy GamePanel rozszerzającej JPanel, który 
+     * zawiera w sobie rozgrywkę (rysuje trasę, przeszkody)
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param level int pozwalający określić jaki stopień alkoholu wybrał gracz
+     */
     public GameGUI(GamePanel gp,JPanel cardPanel, CardLayout cl, int level){
         this.level = level;
         initComponents(gp,cardPanel,cl, level);
@@ -66,7 +76,6 @@ public class GameGUI extends JPanel{
             }
             cl.show(cardPanel,"MENU");
         });
-        /**/
         alcohol.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         
         if(level==1){
