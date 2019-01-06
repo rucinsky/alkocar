@@ -6,7 +6,7 @@
 package wjp.alkocar;
 
 import java.awt.Image;
-import java.awt.image.BufferedImage;
+import java.io.File;
 import javax.swing.ImageIcon;
 
 /**
@@ -14,25 +14,45 @@ import javax.swing.ImageIcon;
  * @author Damian
  */
 public class GPars {
-    public static Image track; //Obraz trasy 
+    public static Image track; 
+    /**  Grafika trasy   */
     public static Image logo;
+    /**  Grafika logo gry   */
     public static Image instruction;
+    /**  Grafika ekranu instrukcji   */
     public static ImageIcon start_button;
+    /**  Grafika przycisku rozpoczynającego grę   */
     public static ImageIcon how_button;
+    /**  Grafika przycisku prowadzącego do instrukcji gry   */
     public static ImageIcon end_button;
+    /**  Grafika przycisku wyłączającego grę   */
     public static ImageIcon back_button;
+    /**  Grafika przycisku powrotu do menu   */
     public static ImageIcon alc1_button;
+    /**  Grafika przycisku "trzeźwy"   */
     public static ImageIcon alc2_button;
+    /**  Grafika przycisku "0,6 promila"   */
     public static ImageIcon alc3_button;
+    /**  Grafika przycisku "1,5 promila"   */
     public static ImageIcon alc4_button;
+    /**  Grafika przycisku "2,3 promila"   */
     public static ImageIcon alc5_button;
+    /**  Grafika przycisku "3,4 promila"   */
     public static Image car;
+    /**  Grafika samochodu prowadzonego przez użytkownika"   */
     public static Image gameover;
+    /**  Grafika ekranu "Game Over"   */
     public static Image obstacle1,obstacle2,obstacle3;
+    /**  Grafika przeszkód drogowych   */
     public static Image cover,cover1,cover2,cover3;
-    
+    /**  Grafika przesłon, psujących wizję   */
+    public static File f1 ,f2;
+    /**  Pliki ścieżek dźwiękowych   */
 
-    public static void loadInitialImages() {
+    /**
+     * Metoda wczytywania zasobow gry, takich jak grafika czy dzwieki
+     */
+    public static void loadInitialResources() { 
         track = loadImage("./src/images/track.png");
         logo = loadImage("./src/images/logo.png");
         instruction = loadImage("./src/images/instruction.png");
@@ -54,15 +74,25 @@ public class GPars {
         cover1 = loadImage("./src/images/cover1.png");
         cover2 = loadImage("./src/images/cover2.png");
         cover3 = loadImage("./src/images/cover3.png");
+        f1 = loadFile("./src/sounds/water_sound.wav"); 
+        f2 = loadFile("./src/sounds/car_crash.wav");
+        
             
-            
-        }//koniec loadInitialImages()
+        }
 
-        /**
-         * Metoda pobierania obiektu klasy Image na podstawie Ĺ›cieĹĽki
-         * dostepu podanej jako String
-         */
-    public static Image loadImage(String fileName) {
+    /**
+     * Metoda pobierania obiektu klasy Image na podstawie podanej sciezki
+     * dostepu podanej jako String
+     */
+    public static Image loadImage(String fileName) { 
             return new ImageIcon(fileName).getImage();
-        }//koniec loadImage();
+    }
+    
+    /**
+     * Metoda pobierania obiektu klasy File na podstawie podanej sciezki
+     * dostepu podanej jako String
+     */
+    public static File loadFile (String fileName){
+        return new File(fileName).getAbsoluteFile();
+    }
 }

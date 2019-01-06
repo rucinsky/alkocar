@@ -12,44 +12,77 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
- *
+ * Klasa zawierająca w sobie całą rozgrywkę. 
+ * Rysuje trasę, pojazdy, przeszkody, wychwytuje zderzenia.
  * @author Damian
  */
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
     
-    public int sWidth;
-    public int sHeight;
+    public static int sWidth;
+    /**  Szerokość okna   */
+    public static int sHeight;
+    /**  Wysokość okna   */
     public int level;
+    /**  Level, czyli wybrana dawka alkoholu   */
     private JButton back;
+    /**  Przycisk powrotu do menu   */
     public JPanel cardPanel;
+    /**  Panel zawierający wszystkie panele   */
     public CardLayout cl;
-    int posY=-750;
-    int carX=885;
-    int carY=470;
-    int speedX=0,speedY=0;
-    int car_ob_y, car_ob_y1, car_ob_y2;
-    int car_ob_x,car_ob_x1,car_ob_x2;
-    int tree_x,tree_y,tree_x1,tree_y1,tree_x2,tree_y2,tree_x3,tree_y3;
-    int rock_x,rock_y,rock_x1,rock_y1,rock_x2,rock_y2;
-    Random rand = new Random();
-    public Timer t = new Timer (5, this);
+    /**  Layout umożliwiający przełączanie pomiędzy panelami   */
+    private int posY=-750;
+    /**  Startowa pozycja trasy   */
+    private int carX=885, carY=470;
+    /**  Startowe położenie auta użytkownika */
+    private int speedX=0,speedY=0;
+    /**  Startowe prędkości poruszania auta   */
+    private int car_ob_y, car_ob_y1, car_ob_y2, car_ob_x,car_ob_x1,car_ob_x2;
+    /**  Położenia aut przeszkód*/
+    private int tree_x,tree_y,tree_x1,tree_y1,tree_x2,tree_y2,tree_x3,tree_y3;
+    /**  Położenie drzew (przeszkód) */
+    private int rock_x,rock_y,rock_x1,rock_y1,rock_x2,rock_y2;
+    /**  Położenie skał (przeszkód) */
+    private Random rand = new Random();
+    /**  Obiekt potrzebny do losowania położenia */
+    private Timer t = new Timer (5, this);
+    /**  Licznik odrysowywania */
+    
     
     public GamePanel(CardLayout cl, JPanel cardPanel,int width,int height, int level){
-        super();
-        
+        super(); 
         this.cardPanel = cardPanel;
         this.cl=cl;
         this.sHeight=height;
         this.sWidth=width;
-        this.level=level;      
+        this.level=level;
+       
+        start();
+    }
+    /**
+     * Metoda służy do wystartowania gry, czyli odpalenia timera oraz
+     * wylosowania położeń początkowych przeszkód
+     */
+    private void start(){
+        addKeyListener(this);
+        setFocusTraversalKeysEnabled(false);
+        setFocusable(true); 
+        t.start();
+        
+        /*Losowanie startowych położeń poszczególnych przeszkód*/
         car_ob_y=drawY(car_ob_y,1);
         car_ob_x=drawX(car_ob_x,1);
         car_ob_x1=drawX(car_ob_x1,1);
@@ -70,14 +103,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         rock_y1 = drawY (rock_y1,2);
         rock_x2 = drawX (rock_x2,3);
         rock_y2 = drawY (rock_y2,2);
-                
-        t.start();
-        addKeyListener(this);
-        setFocusTraversalKeysEnabled(false);
-        setFocusable(true);
-        
-        
-    }           
+    }
+    /**
+     * Metoda odpowiedzialna za odrysowywanie komponentów
+     * Rysuje trasę, przeszkody i auto użytkownika, zgodnie ze zmieniającymi się 
+     * współrzędnymi obiektów. Robi to zależnie od wybranego levelu. 
+     * @param gs 
+     */
    @Override
     public void paint(Graphics gs){
         Graphics2D g=(Graphics2D)gs;
@@ -132,19 +164,27 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
             {
                 g.drawImage(GPars.cover3,0,0,this);
             }
+        this.repaint();
 } 
-    
+    /**
+     * Metoda zawiera odpowiedź na pojawiające się wydarzenie.
+     * Wydarzenie to wciśnięcie przycisków strzałek na klawiaturze.
+     * @param e 
+     */
+    @Override
     public void actionPerformed (ActionEvent e){
-        repaint();
-        revalidate();
+        /*Zapętlenie trasy*/
         if(posY>=0){ 
             posY = -749;
         }
         else
         {  
             posY=posY+2; 
+            /*Poruszanie trasą trasy*/
             
         }
+        /*Zapętlenie drzew, gdy znikną z planszy ponownie losujemy położenie 
+        kolejnych, to samo dzieje się z resztą przeszkód poniżej*/
         if(tree_y>1280){ 
             tree_y=drawY(tree_y,1);
             tree_x=drawX(tree_x,2);
@@ -153,8 +193,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         {  
             if (level<3)
                 tree_y=tree_y+2; 
+            /*Poruszenie przeszkodą; dla levelu 1 i 2 wolniej*/
             else 
                 tree_y=tree_y+3;
+            /*Poruszenie przeszkodą; dla levelu 3,4 i 5 szybciej*/
             
         }
         if(tree_y1>1280){ 
@@ -266,72 +308,113 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
                 car_ob_y2=car_ob_y2+4;
             }
         }
-            
+          
         carX += speedX; 
         carY += speedY;
+        /*Poruszanie autem użytkownika*/  
         
         if(carY <= 3) 
         {carY = 3;}  
-        
+        /*Nie pozwala wyjechać autu wyjechać poza obszar gry (w górę)*/  
         
         if(carY >=480 )
         {carY = 480;} 
-        
+        /*Nie pozwala wyjechać autu wyjechać poza obszar gry (w dół)*/ 
         
         if(carX <= 0)  
         {carX = 0;}    
-        
+        /*Nie pozwala wyjechać autu wyjechać poza obszar gry (w lewo)*/ 
        
         if(carX >= 1168) 
         {carX = 1168;}
+        /*Nie pozwala wyjechać autu wyjechać poza obszar gry (w prawo)*/ 
         
-        if (carX<=234){ //auto wjeżdża do wody
+        if (carX<=234){ 
+            playSound(1);
             end();
+            /*Gdy auto użytkownika wjedzie w obszar wody*/ 
         }
 
         if (((carX-car_ob_x)<80) & ((carX-car_ob_x)>-80) & ((carY-car_ob_y)<160) & ((carY-car_ob_y)>-160)){
+            playSound(2);
             end();
         }
+        /*Zderzenie auta użytkownika z przeszkodą w postaci auta nr 1*/ 
                     
         if (((carX-car_ob_x1)<80) & ((carX-car_ob_x1)>-80) & ((carY-car_ob_y1)<160) & ((carY-car_ob_y1)>-160)& level>1){
+            playSound(2);
             end();
         }
+        /*Zderzenie auta użytkownika z przeszkodą w postaci auta nr 2*/ 
+        
         if (((carX-car_ob_x2)<80) & ((carX-car_ob_x2)>-80) & ((carY-car_ob_y2)<160) & ((carY-car_ob_y2)>-160)& level>3){
+            playSound(2);
             end();
         } 
+        /*Zderzenie auta użytkownika z przeszkodą w postaci auta nr 3*/ 
+        
         if (((tree_y-carY)<80)& ((tree_y-carY)>-80)&((tree_x-carX)<81)&((tree_x-carX)>-81)){
+            playSound(2);
             end();
         }
+        /*Zderzenie auta użytkownika z przeszkodą w postaci drzewa nr 1*/ 
+        
         if (((tree_y1-carY)<80)& ((tree_y1-carY)>-80)&((tree_x1-carX)<81)&((tree_x1-carX)>-81)){
+            playSound(2);
             end();
         }
+        /*Zderzenie auta użytkownika z przeszkodą w postaci drzewa nr 2*/ 
+        
         if (((tree_y2-carY)<80)& ((tree_y2-carY)>-80)&((tree_x2-carX)<81)&((tree_x2-carX)>-81)&level>1){
+            playSound(2);
             end();
         }
+        /*Zderzenie auta użytkownika z przeszkodą w postaci drzewa nr 3*/ 
+        
         if (((tree_y3-carY)<80)& ((tree_y3-carY)>-80)&((tree_x3-carX)<81)&((tree_x3-carX)>-81)&level>3){
+            playSound(2);
             end();
         }
+        /*Zderzenie auta użytkownika z przeszkodą w postaci drzewa nr 4*/ 
+        
         if (((rock_y-carY)<43)& ((rock_y-carY)>-43)&((rock_x-carX)<89)&((rock_x-carX)>-89)){
+            playSound(2);
             end();
         }
+        /*Zderzenie auta użytkownika z przeszkodą w postaci skały nr 1*/ 
+        
         if (((rock_y1-carY)<43)& ((rock_y1-carY)>-43)&((rock_x1-carX)<89)&((rock_x1-carX)>-89)){
+            playSound(2);
             end();
         }  
+        /*Zderzenie auta użytkownika z przeszkodą w postaci skały nr 2*/ 
+        
         if (((rock_y2-carY)<43)& ((rock_y2-carY)>-43)&((rock_x2-carX)<89)&((rock_x2-carX)>-89)&level>3){
+            playSound(2);
             end();
         }   
+        /*Zderzenie auta użytkownika z przeszkodą w postaci skały nr 3*/ 
         
+        this.repaint();
+        this.revalidate();  
     }
     
+    /**
+     * Metoda opisująca co wydarzy się po wciśnięcu strzałki "w górę"
+     * zależnie od levelu.
+     */
     public void up(){
         if (level==1||level==2){
             speedY= -2;
         }
         if (level==3||level==4||level==5){
-            speedY= -1;
-            
+            speedY= -1;   
         }
     }
+    /**
+     * Metoda opisująca co wydarzy się po wciśnięcu strzałki "w dół"
+     * zależnie od levelu.
+     */
     public void down(){
         if (level==1||level==2){
             speedY= 2;
@@ -340,6 +423,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
             speedY= 1;
         }
     }
+    /**
+     * Metoda opisująca co wydarzy się po wciśnięcu strzałki "w lewo"
+     * zależnie od levelu.
+     */
     public void left(){
         if (level==1||level==2){
             speedX=-2;
@@ -348,6 +435,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
             speedX= -1;
         }
     }
+    /**
+     * Metoda opisująca co wydarzy się po wciśnięcu strzałki "w prawo"
+     * zależnie od levelu.
+     */
     public void right(){
         if (level==1||level==2){
             speedX=2;
@@ -356,20 +447,36 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
             speedX= 1;
         }
     }
-    
+    /**
+     * Metoda opisująca co wydarzy się po puszczeniu strzałki "w górę"
+     */
     public void upSTOP(){
         speedY= 0;
     }
+    /**
+     * Metoda opisująca co wydarzy się po puszczeniu strzałki "w dół"
+     */
     public void downSTOP(){
         speedY= 0;
     }
+    /**
+     * Metoda opisująca co wydarzy się po puszczeniu strzałki "w lewo"
+     */
     public void leftSTOP(){
         speedX=0;
     }
+    /**
+     * Metoda opisująca co wydarzy się po puszczeniu strzałki "w prawo"
+     */
     public void rightSTOP(){
         speedX=0;
     }
     
+    /**
+     * Metoda zbierająca informację o tym jaki przycisk został wciśnięty, a
+     * następnie wskazuje co należy zrobić w przypadku jego wciśnięcia
+     */
+    @Override
     public void keyPressed(KeyEvent e){
         int code = e.getKeyCode();
         if (code== KeyEvent.VK_UP){
@@ -384,10 +491,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         if (code== KeyEvent.VK_RIGHT){
             right();
         }
+        setFocusable(true);
     }
+    
+    @Override
     public void keyTyped(KeyEvent e){
         
     }
+    
+    /**
+     * Metoda zbierająca informację o tym jaki przycisk został puszczony, a
+     * następnie wskazuje co należy zrobić w przypadku jego wyciśnięcia
+     */
+    @Override
     public void keyReleased (KeyEvent e){
         int code = e.getKeyCode();
         if (code== KeyEvent.VK_UP){
@@ -403,37 +519,88 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
             rightSTOP();
         }
     }
+    
+    /**
+     * Metoda losująca współrzędne Y przeszkód zależnie od wybranej opcji
+     * @param Y współrzędna Y
+     * @param option opcja, które losowanie ma się odbyć
+     * @return 
+     */
     private int drawY (int Y,int option){
+        /*Opcja losowania współrzędnej Y dla aut przeszkód, dla reszty przeszkód
+        dopiero przy drugim losowaniu*/
         if (option==1){
             Y = (rand.nextInt(483)+167)*(-1);
             return Y;
         }
+        /*Opcja losowania współrzędnej Y przeszkody w postaci drzewa lub skały
+        do pierwszego odpalenia gry, żeby od razu były widoczne na trasie*/
         if (option==2){
             Y = rand.nextInt(745);
             return Y;
         }
         else return Y;
     }
-    
+    /**
+     * Metoda losująca współrzędne X przeszkód zależnie od wybranej opcji
+     * @param X współrzędna X
+     * @param option opcja, które losowanie ma się odbyć
+     * @return 
+     */
     private int drawX (int X,int option){
+        /*Opcja dla losowania współrzędnej X przeszkody w postaci auta*/
         if (option==1){
             X = rand.nextInt(566)+420;
             return X;
         }
+        /*Opcja dla losowania współrzędnej X przeszkody w postaci drzewa*/
         if (option==2){
             X = rand.nextInt(125)+1075;
             return X;
         }
+        /*Opcja dla losowania współrzędnej X przeszkody w postaci skały*/
         if (option==3){
             X = rand.nextInt(70)+250;
             return X;
         }
         else return X;
     } 
+    /**
+     * Metoda odtwarzająca dźwięki w grze
+     * @param option wybór dźwięku do odegrania
+     */
+    public static synchronized void playSound(int option) {
+        new Thread(new Runnable() {
+          @Override
+          public void run() {
+            try {
+                /*Włączenie dźwięku wpadnięcia do wody przez auto użytkownika*/
+                if (option == 1){
+              Clip clip = AudioSystem.getClip();
+              AudioInputStream inputStream = AudioSystem.getAudioInputStream(GPars.f1);
+              clip.open(inputStream);
+              clip.start(); }
+                /*Włączenie dźwięku zderzenia przez auto użytkownika*/
+                if (option == 2){
+              Clip clip = AudioSystem.getClip();
+              AudioInputStream inputStream = AudioSystem.getAudioInputStream(GPars.f2);
+              clip.open(inputStream);
+              clip.start(); }
+                
+            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+              System.err.println(e.getMessage());
+            }
+          }
+        }).start();
+    }
+    /**
+     * Metoda służąca do zakończenia gry
+     */
     public void end(){
             t.stop();
             speedX=0;
             speedY=0;
+            
             cl.show(cardPanel, "GAME OVER");
             try {
                 super.finalize();

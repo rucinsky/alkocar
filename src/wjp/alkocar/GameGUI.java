@@ -13,7 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
+ * Klasa tworząca okno rozgrywki
+ * Klasa służy do ustawienia w odpowiednie miejsca
+ * trasy, przycisku powrotu oraz wybranej dawki 
+ * alkoholu.
  * @author Damian
  */
 public class GameGUI extends JPanel{
@@ -22,12 +25,24 @@ public class GameGUI extends JPanel{
         this.level = level;
         initComponents(gp,cardPanel,cl, level);
     }
+    /**
+     * Metoda ładująca odpowiednie komponenty do stworzonego 
+     * wcześniej panelu rozgrywki
+     * @param gp Obiekt klasy GamePanel rozszerzającej JPanel, który 
+     * zawiera w sobie rozgrywkę (rysuje trasę, przeszkody)
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param level int pozwalający określić jaki stopień alkoholu wybrał gracz
+     */
     private void initComponents(GamePanel gp, JPanel cardPanel, CardLayout cl, int level){
         JButton back;
         JLabel alcohol;
         back = new javax.swing.JButton();
-        alcohol = new javax.swing.JLabel();
-        
+        /*Przycisk cofnięcia do menu*/
+        alcohol = new javax.swing.JLabel(); 
+        /*Zawiera informację o ilości alkoholu wybranej przez użytkownika*/
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(gp);
         gp.setLayout(jPanel1Layout);
@@ -51,7 +66,7 @@ public class GameGUI extends JPanel{
             }
             cl.show(cardPanel,"MENU");
         });
-
+        /**/
         alcohol.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         
         if(level==1){
@@ -72,7 +87,7 @@ public class GameGUI extends JPanel{
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         
-        layout.setHorizontalGroup(
+        layout.setHorizontalGroup( /*Dodanie odpowiednich komponentów do panelu*/
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -85,7 +100,7 @@ public class GameGUI extends JPanel{
                         .addGap(0, 486, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
+        layout.setVerticalGroup( /*Dodanie odpowiednich komponentów do panelu*/
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()

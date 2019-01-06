@@ -16,7 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 /**
- *
+ * Klasa, w której tworzone są wszystkie mniej skomplikowane panele takie jak
+ * menu, instrukcja, game over. Wyświetla także okno główne gry.
  * @author Damian
  */
 
@@ -35,26 +36,32 @@ public class GameWindow extends JFrame {
     public CardLayout cl = new CardLayout();
     public Container pane = this.getContentPane();
     
-    
+    /**
+     * Konstruktor klasy, ładuje wszystkie panele i dodaje je do layoutu.
+     * @param width szerokość okna
+     * @param height wysokość okna
+     * @param x położenie okna na osi x
+     * @param y położenie okna na osi y
+     */
     
     public GameWindow(int width, int height, int x, int y)
     {        
-        super();
+        super(); //wywołaj konstruktor klasy nadrzędnej
         this.width=width;
-        this.height=height;//wywoĹ‚aj konstruktor klasy nadrzÄ™dnej - utwĂłrz okno
+        this.height=height;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(width, height); //ustaw wymiary okna
-        setLocation(x,y); //ustaw pozycjÄ™ okna
-        setResizable(true); //zablokuj moĹĽliwoĹ›Ä‡ zmian rozmiaru okna
-        setUndecorated(true); //ukryj ramkÄ™ okna i przyciski kontrolne
-        GPars.loadInitialImages();
-        menuGUI(width,height);
-        chooseGUI(width,height); 
-        gameoverGUI();  
-        instructionGUI(width,height);
+        setLocation(x,y); //ustaw pozycję okna
+        setResizable(true); //zablokuj możliwość zmian rozmiaru okna
+        setUndecorated(true); //ukryj ramkę okna i przyciski kontrolne
+        GPars.loadInitialResources(); // załadowanie niezbędnych zasobów
+        menuGUI(width,height); //załadowanie panelu MENU
+        chooseGUI(width,height); // załadowanie panelu WYBORU DAWKI ALKOHOLU
+        gameoverGUI(width,height);  //załadowanie panelu GAME OVER
+        instructionGUI(width,height); //załadowanie panelu INSTRUKCJI
         
-        cardPanel.setLayout(cl);
-        cardPanel.add(menu,"MENU");
+        cardPanel.setLayout(cl); //ustawienie w cardPanelu layoutu CardLayout
+        cardPanel.add(menu,"MENU"); 
         cardPanel.add(choose,"CHOOSE");
         cardPanel.add(instruction,"INSTRUCTION");
         cardPanel.add(gameover,"GAME OVER");
@@ -63,24 +70,30 @@ public class GameWindow extends JFrame {
         
         this.pack();
         this.setVisible(true);
-        //animationLoop(); //uruchom pÄ™tlÄ™ animacji gry
         
     }
-    
+    /**
+     * Metoda ładująca komponenty panelu MENU
+     * @param width szerokość okna
+     * @param height wysokość okna
+     */
     public void menuGUI(int width, int height){
         
         Image image;
-        JButton start=new JButton();
-        JButton instruction=new JButton();
-        JButton end=new JButton();
+        JButton start=new JButton(); //przycisk "Rozpocznij grę"
+        JButton instruction=new JButton(); //przycisk "Jak grać"
+        JButton end=new JButton(); //przycisk "Wyjdź z gry"
+        image = GPars.logo; //wczytanie grafiki
+        JLabel logo = new JLabel(new ImageIcon(image)); //obraz loga
 
         menu.setPreferredSize(new java.awt.Dimension(width, height));
 
 
-        end.setIcon(GPars.end_button);
+        end.setIcon(GPars.end_button); //wstawienie grafiki na przycisk
         end.setBorderPainted(true);
         end.setContentAreaFilled(false);
         end.addActionListener(new java.awt.event.ActionListener() {
+                @Override
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ButtonAction.endActionPerformed(evt);
                 }
@@ -90,6 +103,7 @@ public class GameWindow extends JFrame {
         instruction.setBorderPainted(true);
         instruction.setContentAreaFilled(false);
         instruction.addActionListener(new java.awt.event.ActionListener() {
+                @Override
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ButtonAction.instructionActionPerformed(evt, cl, cardPanel);
                 }
@@ -101,37 +115,40 @@ public class GameWindow extends JFrame {
         start.setBorderPainted(true);
         start.setContentAreaFilled(false);
         start.addActionListener(new java.awt.event.ActionListener() {
+                @Override
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ButtonAction.startActionPerformed(evt, cl, cardPanel);
                 }
             }); 
 
         menu.setLayout(new FlowLayout(1, 150,0));
-        image = GPars.logo;
-        JLabel logo = new JLabel(new ImageIcon(image));
         
+        
+        /*Dodanie do panelu wcześniej utworzonych komponentów*/
         menu.add(logo);
         menu.add(start);
         menu.add(instruction);
         menu.add(end);
-        
-        validate();
-        
-        //dodaj panel gry zawierajÄ…cy grafikÄ™ i akcjÄ™
-    }//koniec initGUI()
+
+    }
     
+    /**
+     * Metoda ładująca komponenty panelu wyboru dawki alkoholu
+     * @param width szerokość okna
+     * @param height wysokość okna
+     */
     public void chooseGUI (int width, int height){
-        JLabel title = new JLabel();
-        JLabel under_title = new JLabel();
-        JButton zero = new JButton();
-        JButton zero_six = new JButton();
-        JButton one_five = new JButton();
-        JButton two_three = new JButton();
-        JButton three_four = new JButton();
-        JButton back = new JButton();
+        JLabel title = new JLabel(); //tytuł panelu
+        JLabel under_title = new JLabel(); // tekst pod tytułem
+        JButton zero = new JButton(); // przycisk "trzeźwy"
+        JButton zero_six = new JButton(); // przycisk "0,6 promila"
+        JButton one_five = new JButton(); // przycisk "1,5 promila"
+        JButton two_three = new JButton(); // przycisk "2,3 promila"
+        JButton three_four = new JButton(); // przycisk "3,4 promila"
+        JButton back = new JButton(); // przycisk powrotu do menu
         
 
-        choose.setPreferredSize(new java.awt.Dimension(1024, 768));
+        choose.setPreferredSize(new java.awt.Dimension(width, height));
         
         title.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -154,6 +171,7 @@ public class GameWindow extends JFrame {
         zero_six.setBorderPainted(true);
         zero_six.setContentAreaFilled(false);
         zero_six.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonAction.zero_sixActionPerformed(evt, cl, cardPanel,width,height);
             }
@@ -163,6 +181,7 @@ public class GameWindow extends JFrame {
         one_five.setBorderPainted(true);
         one_five.setContentAreaFilled(false);
         one_five.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonAction.one_fiveActionPerformed(evt, cl, cardPanel,width,height);
             }
@@ -172,6 +191,7 @@ public class GameWindow extends JFrame {
         two_three.setBorderPainted(true);
         two_three.setContentAreaFilled(false);
         two_three.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonAction.two_threeActionPerformed(evt, cl, cardPanel,width,height);
             }
@@ -181,6 +201,7 @@ public class GameWindow extends JFrame {
         three_four.setBorderPainted(true);
         three_four.setContentAreaFilled(false);
         three_four.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonAction.three_fourActionPerformed(evt, cl, cardPanel,width,height);
             }
@@ -190,6 +211,7 @@ public class GameWindow extends JFrame {
         back.setBorderPainted(true);
         back.setContentAreaFilled(false);
         back.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonAction.backActionPerformed(evt, cl, cardPanel);
             }
@@ -205,40 +227,48 @@ public class GameWindow extends JFrame {
         choose.add(three_four);
         choose.add(back);
     }
-    
+    /**
+     * Metoda ładująca komponenty panelu instrukcji
+     * @param width szerokość okna
+     * @param height wysokość okna
+     */
     public void instructionGUI (int width, int height){
-       
-        
-        Image image;
-        JLabel under_title = new JLabel();
-        JButton back = new JButton();
-        
-        instruction.setPreferredSize(new java.awt.Dimension(1024, 768));
+        Image image; //grafika z opisem rozgrywki
+        JButton back = new JButton(); //przycisk powrotu do menu
+        image = GPars.instruction; // wczytanie grafiki
+        JLabel instructionImage = new JLabel(new ImageIcon(image)); 
+        instruction.setPreferredSize(new java.awt.Dimension(width, height));
         
         back.setIcon(GPars.back_button);
         back.setBorderPainted(true);
         back.setContentAreaFilled(false);
         back.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonAction.backActionPerformed(evt, cl, cardPanel);
             }
     });
        instruction.setLayout(new FlowLayout(1));
-       image = GPars.instruction;
-       JLabel instructionImage = new JLabel(new ImageIcon(image));
+       
        instruction.add(instructionImage);
        instruction.add(back);
     }
-    
-    public void gameoverGUI (){
+   /**
+     * Metoda ładująca komponenty panelu Game Over
+     * @param width szerokość okna
+     * @param height wysokość okna
+    */ 
+    public void gameoverGUI (int width, int height){
         Image image;
-        JButton back = new JButton();
-        image = GPars.gameover;
-        JLabel gameoverImage = new JLabel(new ImageIcon(image));
-         back.setIcon(GPars.back_button);
+        JButton back = new JButton(); //przycisk powrotu do menu
+        image = GPars.gameover; //wczytanie grafiki
+        JLabel gameoverImage = new JLabel(new ImageIcon(image)); //grafika game over
+        gameover.setPreferredSize(new java.awt.Dimension(width, height));
+        back.setIcon(GPars.back_button);
         back.setBorderPainted(true);
         back.setContentAreaFilled(false);
         back.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonAction.backActionPerformed(evt, cl, cardPanel);
             }
