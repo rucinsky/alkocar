@@ -14,6 +14,10 @@ import javax.swing.JPanel;
  * @author Damian
  */
 public class ButtonAction{
+
+    /**
+     * Pusty konstruktor
+     */
     public ButtonAction(){
         
     }
@@ -29,6 +33,10 @@ public class ButtonAction{
     /**
      * Akcja do przycisku "Jak grać"
      * @param evt ActionEvent wytworzony przez wciśnięcie LPM w przycisk
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
      */
     public static void instructionActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel) {                                     
         cl.show(cardPanel,"INSTRUCTION");
@@ -36,6 +44,10 @@ public class ButtonAction{
     /**
      * Akcja do przycisku "Rozpocznij grę"
      * @param evt ActionEvent wytworzony przez wciśnięcie LPM w przycisk
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
      */
    public static void startActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel) {                                
         
@@ -45,6 +57,12 @@ public class ButtonAction{
     /**
      * Akcja dla przycisku "Trzeźwy"  
      * @param evt ActionEvent wytworzony przez wciśnięcie LPM w przycisk
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
+     * @param width szerokość okna
+     * @param height wysokość okna
      */
     public static void zeroActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                   
         
@@ -56,6 +74,12 @@ public class ButtonAction{
     /**
      * Akcja dla przycisku "0,6 promila"  
      * @param evt ActionEvent wytworzony przez wciśnięcie LPM w przycisk
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
+     * @param width szerokość okna
+     * @param height wysokość okna
      */
     public static void zero_sixActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                              
         
@@ -67,6 +91,12 @@ public class ButtonAction{
     /**
      * Akcja dla przycisku "1,5 promila"  
      * @param evt ActionEvent wytworzony przez wciśnięcie LPM w przycisk
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
+     * @param width szerokość okna
+     * @param height wysokość okna
      */
     public static void one_fiveActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                
         
@@ -78,6 +108,12 @@ public class ButtonAction{
     /**
      * Akcja dla przycisku "2,3 promila"  
      * @param evt ActionEvent wytworzony przez wciśnięcie LPM w przycisk
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
+     * @param width szerokość okna
+     * @param height wysokość okna
      */
     public static void two_threeActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                                 
         
@@ -89,6 +125,12 @@ public class ButtonAction{
     /**
      * Akcja dla przycisku "3,4 promila"  
      * @param evt ActionEvent wytworzony przez wciśnięcie LPM w przycisk
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
+     * @param width szerokość okna
+     * @param height wysokość okna
      */
     public static void three_fourActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel,int width, int height) {                        
         
@@ -100,6 +142,10 @@ public class ButtonAction{
     /**
      * Akcja dla przycisku powrotu do menu  
      * @param evt ActionEvent wytworzony przez wciśnięcie LPM w przycisk
+     * @param cl Obiekt CardLayout zawierający w sobie cardPanel 
+     * umożlwiiający dowolne wybieranie widocznego panelu.
+     * @param cardPanel Obiekt JPanel zawierający w sobie zbiór 
+     * wszystkich paneli 
      */
     public static void backActionPerformed(java.awt.event.ActionEvent evt,CardLayout cl,JPanel cardPanel) {                                     
         

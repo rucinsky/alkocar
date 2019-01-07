@@ -14,40 +14,33 @@ import javax.swing.ImageIcon;
  * @author Damian
  */
 public class GPars {
-    public static Image track; 
     /**  Grafika trasy   */
-    public static Image logo;
+    public static Image track; 
     /**  Grafika logo gry   */
-    public static Image instruction;
+    public static Image logo;
     /**  Grafika ekranu instrukcji   */
-    public static ImageIcon start_button;
+    public static Image instruction;
     /**  Grafika przycisku rozpoczynającego grę   */
-    public static ImageIcon how_button;
+    public static ImageIcon start_button;
     /**  Grafika przycisku prowadzącego do instrukcji gry   */
-    public static ImageIcon end_button;
+    public static ImageIcon how_button;
     /**  Grafika przycisku wyłączającego grę   */
-    public static ImageIcon back_button;
+    public static ImageIcon end_button;
     /**  Grafika przycisku powrotu do menu   */
-    public static ImageIcon alc1_button;
-    /**  Grafika przycisku "trzeźwy"   */
-    public static ImageIcon alc2_button;
-    /**  Grafika przycisku "0,6 promila"   */
-    public static ImageIcon alc3_button;
-    /**  Grafika przycisku "1,5 promila"   */
-    public static ImageIcon alc4_button;
-    /**  Grafika przycisku "2,3 promila"   */
-    public static ImageIcon alc5_button;
-    /**  Grafika przycisku "3,4 promila"   */
+    public static ImageIcon back_button;
+    /**  Grafika przycisków wyboru dawki alkoholu   */
+    public static ImageIcon alc1_button,alc2_button,alc3_button,alc4_button,alc5_button;
+    /**  Grafika samochodu prowadzonego przez użytkownika   */
     public static Image car;
-    /**  Grafika samochodu prowadzonego przez użytkownika"   */
-    public static Image gameover;
     /**  Grafika ekranu "Game Over"   */
-    public static Image obstacle1,obstacle2,obstacle3,obstacle4;
+    public static Image gameover;
     /**  Grafika przeszkód drogowych   */
-    public static Image cover,cover1,cover2,cover3,cover4;
+    public static Image obstacle1,obstacle2,obstacle3,obstacle4;
     /**  Grafika przesłon, psujących wizję   */
-    public static File f1 ,f2;
+    public static Image cover,cover1,cover2,cover3,cover4;
     /**  Pliki ścieżek dźwiękowych   */
+    public static File f1 ,f2;
+    
 
     /**
      * Metoda wczytywania zasobow gry, takich jak grafika czy dzwieki

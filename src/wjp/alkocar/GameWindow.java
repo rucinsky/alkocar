@@ -25,15 +25,23 @@ import javax.swing.JPanel;
 
 public class GameWindow extends JFrame {
     
+    /**Szerokość okna*/
     public int width;
+    /**Wysokość okna*/
     public int height;
+    /**Panel menu*/
     public JPanel menu = new JPanel();
+    /**Panel wyboru dawki alkoholu*/
     public JPanel choose = new JPanel();
+    /**Panel instrukcji do gry*/
     public JPanel instruction = new JPanel();
-    public JPanel game = new JPanel();
+    /**Panel game over (przegrana)*/
     public JPanel gameover = new JPanel();
+    /**Panel zawierający wszystkie panele*/
     public JPanel cardPanel = new JPanel();
+    /**Layout umożliwiający przełączanie między panelami, zawiera w sobie cardPanel*/
     public CardLayout cl = new CardLayout();
+    /**Kontener, do którego wrzucony jest cardPanel*/
     public Container pane = this.getContentPane();
     
     /**
@@ -43,7 +51,6 @@ public class GameWindow extends JFrame {
      * @param x położenie okna na osi x
      * @param y położenie okna na osi y
      */
-    
     public GameWindow(int width, int height, int x, int y)
     {        
         super(); //wywołaj konstruktor klasy nadrzędnej
@@ -70,7 +77,6 @@ public class GameWindow extends JFrame {
         
         this.pack();
         this.setVisible(true);
-        
     }
     
     /**
@@ -78,7 +84,7 @@ public class GameWindow extends JFrame {
      * @param width szerokość okna
      * @param height wysokość okna
      */
-    private void menuGUI(int width, int height){
+    public void menuGUI(int width, int height){
         
         Image image;
         JButton start=new JButton(); //przycisk "Rozpocznij grę"
@@ -138,7 +144,7 @@ public class GameWindow extends JFrame {
      * @param width szerokość okna
      * @param height wysokość okna
      */
-    private void chooseGUI (int width, int height){
+   public void chooseGUI (int width, int height){
         JLabel title = new JLabel(); //tytuł panelu
         JLabel under_title = new JLabel(); // tekst pod tytułem
         JButton zero = new JButton(); // przycisk "trzeźwy"
@@ -234,7 +240,7 @@ public class GameWindow extends JFrame {
      * @param width szerokość okna
      * @param height wysokość okna
      */
-    private void instructionGUI (int width, int height){
+    public void instructionGUI (int width, int height){
         Image image; //grafika z opisem rozgrywki
         JButton back = new JButton(); //przycisk powrotu do menu
         image = GPars.instruction; // wczytanie grafiki
@@ -261,7 +267,7 @@ public class GameWindow extends JFrame {
      * @param width szerokość okna
      * @param height wysokość okna
     */ 
-    private void gameoverGUI (int width, int height){
+    public void gameoverGUI (int width, int height){
         Image image;
         JButton back = new JButton(); //przycisk powrotu do menu
         image = GPars.gameover; //wczytanie grafiki

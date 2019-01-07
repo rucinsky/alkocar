@@ -32,33 +32,33 @@ import javax.swing.Timer;
  */
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
     
-
-    public int level;
     /**  Level, czyli wybrana dawka alkoholu   */
-    private JButton back;
+    public int level;
     /**  Przycisk powrotu do menu   */
-    public JPanel cardPanel;
+    private JButton back;
     /**  Panel zawierający wszystkie panele   */
-    public CardLayout cl;
+    public JPanel cardPanel;
     /**  Layout umożliwiający przełączanie pomiędzy panelami   */
-    private int posY=-750;
+    public CardLayout cl;
     /**  Startowa pozycja trasy   */
-    private int carX=885, carY=470;
+    public int posY=-750;
     /**  Startowe położenie auta użytkownika */
-    private int speedX=0,speedY=0;
+    public int carX=885, carY=470;
     /**  Startowe prędkości poruszania auta   */
-    private int car_ob_y, car_ob_y1, car_ob_y2,car_ob_y3, car_ob_x,car_ob_x1,car_ob_x2,car_ob_x3;
+    public int speedX=0,speedY=0;
     /**  Położenia aut przeszkód*/
-    private int tree_x,tree_y,tree_x1,tree_y1,tree_x2,tree_y2,tree_x3,tree_y3;
-    /**  Położenie drzew (przeszkód) */
-    private int rock_x,rock_y,rock_x1,rock_y1,rock_x2,rock_y2;
+    public int car_ob_y, car_ob_y1, car_ob_y2,car_ob_y3, car_ob_x,car_ob_x1,car_ob_x2,car_ob_x3;
+    /**  Położenie drzew (przeszkód) */ 
+    public int tree_x,tree_y,tree_x1,tree_y1,tree_x2,tree_y2,tree_x3,tree_y3;
     /**  Położenie skał (przeszkód) */
-    private int human_x=1080,human_y;
+    public int rock_x,rock_y,rock_x1,rock_y1,rock_x2,rock_y2;
     /**  Położenie człowieka (przeszkód) */
-    private final Random rand = new Random();
+    public int human_x=1080,human_y;
     /**  Obiekt potrzebny do losowania położenia */
-    private final Timer t = new Timer (5, this);
+    public final Random rand = new Random();
     /**  Licznik odrysowywania */
+    public final Timer t = new Timer (5, this);
+    
     
     private long time, timer;
     
@@ -477,6 +477,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     /**
      * Metoda zbierająca informację o tym jaki przycisk został wciśnięty, a
      * następnie wskazuje co należy zrobić w przypadku jego wciśnięcia
+     * @param e
      */
     @Override
     public void keyPressed(KeyEvent e){
@@ -504,6 +505,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     /**
      * Metoda zbierająca informację o tym jaki przycisk został puszczony, a
      * następnie wskazuje co należy zrobić w przypadku jego wyciśnięcia
+     * @param e
      */
     @Override
     public void keyReleased (KeyEvent e){
@@ -528,7 +530,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
      * wartość true
      * @return 
      */
-    private boolean check (){
+    public boolean check (){
       if (((carX-car_ob_x)<80) & ((carX-car_ob_x)>-80) & ((carY-car_ob_y)<160) & ((carY-car_ob_y)>-160)){
             return true;
         }
@@ -597,7 +599,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
      * @param option opcja, które losowanie ma się odbyć
      * @return 
      */
-    private int drawY (int Y,int option){
+    public int drawY (int Y,int option){
         /*Opcja losowania współrzędnej Y dla aut przeszkód, dla reszty przeszkód
         dopiero przy drugim losowaniu*/
         if (option==1){
@@ -619,7 +621,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
      * @param option opcja, które losowanie ma się odbyć
      * @return 
      */
-    private int drawX (int X,int option){
+    public int drawX (int X,int option){
         /*Opcja dla losowania współrzędnej X przeszkody w postaci auta*/
         if (option==1){
             X = rand.nextInt(566)+420;
@@ -645,7 +647,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
      * @param time
      * @return 
      */
-    private long drawTime (long time){
+    public long drawTime (long time){
         time = rand.nextInt(20)+25;
         return (long)time*(10^9);
     }

@@ -35,7 +35,6 @@ public class WJPAlkocar {
         GameWindow gw=new GameWindow(gameWidth,gameHeight,xCenter,yCenter);
         gw.setSize(gameWidth, gameHeight);
         gw.setTitle("AlkoCar");
-    }
-    
+    }   
 }
  

@@ -14,13 +14,14 @@ import javax.swing.JPanel;
 
 /**
  * Klasa tworząca okno rozgrywki
- * Klasa służy do ustawienia w odpowiednie miejsca
+ * Służy do ustawienia w odpowiednie miejsca
  * trasy, przycisku powrotu oraz wybranej dawki 
  * alkoholu.
  * @author Damian
  */
 public class GameGUI extends JPanel{
-    public int level; //level gry, czyli właściwie dawka alkoholu
+    /**level gry, czyli właściwie dawka alkoholu*/
+    public int level;
     /**
      * Konstruktor tylko wywołuje kolejną metodę
      * @param gp Obiekt klasy GamePanel rozszerzającej JPanel, który 
@@ -35,6 +36,7 @@ public class GameGUI extends JPanel{
         this.level = level;
         initComponents(gp,cardPanel,cl, level);
     }
+    
     /**
      * Metoda ładująca odpowiednie komponenty do stworzonego 
      * wcześniej panelu rozgrywki
@@ -46,7 +48,7 @@ public class GameGUI extends JPanel{
      * umożlwiiający dowolne wybieranie widocznego panelu.
      * @param level int pozwalający określić jaki stopień alkoholu wybrał gracz
      */
-    private void initComponents(GamePanel gp, JPanel cardPanel, CardLayout cl, int level){
+    public void initComponents(GamePanel gp, JPanel cardPanel, CardLayout cl, int level){
         JButton back;
         JLabel alcohol;
         back = new javax.swing.JButton();
