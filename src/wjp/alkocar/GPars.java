@@ -46,31 +46,31 @@ public class GPars {
      * Metoda wczytywania zasobow gry, takich jak grafika czy dzwieki
      */
     public static void loadInitialResources() { 
-        track = loadImage("./src/images/track.png");
-        logo = loadImage("./src/images/logo.png");
-        instruction = loadImage("./src/images/instruction.png");
-        start_button = new ImageIcon("./src/images/button1.png");
-        how_button = new ImageIcon("./src/images/button2.png");
-        end_button = new ImageIcon("./src/images/button3.png");
-        back_button = new ImageIcon("./src/images/button4.png");
-        alc1_button = new ImageIcon("./src/images/button5.png");
-        alc2_button = new ImageIcon("./src/images/button6.png");
-        alc3_button = new ImageIcon("./src/images/button7.png");
-        alc4_button = new ImageIcon("./src/images/button8.png");
-        alc5_button = new ImageIcon("./src/images/button9.png");
-        car = loadImage("./src/images/car.png");
-        gameover = loadImage("./src/images/gameover.png");
-        obstacle1 = loadImage("./src/images/obstacle_car.png");
-        obstacle2 = loadImage("./src/images/obstacle_tree.png");
-        obstacle3 = loadImage("./src/images/obstacle_rock.png");
-        obstacle4 = loadImage("./src/images/obstacle_human.png");
-        cover = loadImage("./src/images/cover.png");
-        cover1 = loadImage("./src/images/cover1.png");
-        cover2 = loadImage("./src/images/cover2.png");
-        cover3 = loadImage("./src/images/cover3.png");
-        cover4 = loadImage("./src/images/cover4.png");
-        f1 = loadFile("./src/sounds/water_sound.wav"); 
-        f2 = loadFile("./src/sounds/car_crash.wav");
+        track = loadImage("./res/images/track.png");
+        logo = loadImage("./res/images/logo.png");
+        instruction = loadImage("./res/images/instruction.png");
+        start_button = new ImageIcon("./res/images/button1.png");
+        how_button = new ImageIcon("./res/images/button2.png");
+        end_button = new ImageIcon("./res/images/button3.png");
+        back_button = new ImageIcon("./res/images/button4.png");
+        alc1_button = new ImageIcon("./res/images/button5.png");
+        alc2_button = new ImageIcon("./res/images/button6.png");
+        alc3_button = new ImageIcon("./res/images/button7.png");
+        alc4_button = new ImageIcon("./res/images/button8.png");
+        alc5_button = new ImageIcon("./res/images/button9.png");
+        car = loadImage("./res/images/car.png");
+        gameover = loadImage("./res/images/gameover.png");
+        obstacle1 = loadImage("./res/images/obstacle_car.png");
+        obstacle2 = loadImage("./res/images/obstacle_tree.png");
+        obstacle3 = loadImage("./res/images/obstacle_rock.png");
+        obstacle4 = loadImage("./res/images/obstacle_human.png");
+        cover = loadImage("./res/images/cover.png");
+        cover1 = loadImage("./res/images/cover1.png");
+        cover2 = loadImage("./res/images/cover2.png");
+        cover3 = loadImage("./res/images/cover3.png");
+        cover4 = loadImage("./res/images/cover4.png");
+        f1 = loadFile("./res/sounds/water_sound.wav"); 
+        f2 = loadFile("./res/sounds/car_crash.wav");
         
             
         }
